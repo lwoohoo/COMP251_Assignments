@@ -14,9 +14,9 @@ public class Chaining {
          this.w = w;
          this.r = (int) (w-1)/2 +1;
          this.m = power2(r);
-         this.Table = new ArrayList<ArrayList<Integer>>(m);
+         this.Table = new ArrayList<ArrayList<Integer>>(m); //creation of table with length m
          for (int i=0; i<m; i++) {
-             Table.add(new ArrayList<Integer>());
+             Table.add(new ArrayList<Integer>()); //adding each nested array list per slot
          }
          if (A==-1){
          this.A = generateRandom((int) power2(w-1), (int) power2(w),seed);
@@ -43,17 +43,22 @@ public class Chaining {
 
 
 
-    /**Implements the hash function h(k)*/
+    /**Implements the hash function h(k)*/ //done
     public int chain (int key) {
         // TODO: implement this and change the return statement
-        return -1;
+        int hash = ((this.A * key) % power2(this.w) >> (this.w - this.r)); //calculate hash index
+        return hash;
     }
         
     
     /**Inserts key k into hash table. Returns the number of collisions encountered*/
     public int insertKey(int key){
         //TODO: implement this and change the return statement
-        return -1;
+        int index = chain(key);
+        ArrayList<Integer> workingList = Table.get(index);
+        int collisions = workingList.size();
+        workingList.add(key);
+        return collisions;
 
     }
 

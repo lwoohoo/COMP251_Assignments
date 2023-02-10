@@ -38,24 +38,35 @@ public class Open_Addressing {
          int i = generator.nextInt(max-min-1);
          return i+min+1;
      }
-        /**Implements the hash function g(k)*/
+        /**Implements the hash function g(k)*/ //done
         public int probe(int key, int i) {
             //TODO: implement this function and change the return statement.
-            int hashPrime = 0; //calculate initial hash index
-            int hash = hashPrime + i;
-              
-                   return -1;
+            int hash = ((((this.A * key) % power2(this.w) >> (this.w - this.r))) + i) % power2(this.r);
+            return hash;
      }
      
      
      /**Inserts key k into hash table. Returns the number of collisions encountered*/
         public int insertKey(int key){
-            //TODO : implement this and change the return statement.
-            return -1;  
+            //TODO : implement this and change the return statement
+            int collisions = 0;
+            //Table[i] = -1 implies empty slot
+            //Table[i] != -1 implies full slot
+            while (true) {
+                int index = probe(key, collisions); //calculate working index
+                int contents = Table[index]; //get value at hash index
+                if (contents < 0) { //empty case
+                    Table[index] = key; //insertion
+                    break;
+                } else {
+                    collisions++; //increment # collisions
+                }
+            }
+            return collisions;
         }
         
         /**Sequentially inserts a list of keys into the HashTable. Outputs total number of collisions */
-        public int insertKeyArray (int[] keyArray){
+        public int insertKeyArray(int[] keyArray){
             int collision = 0;
             for (int key: keyArray) {
                 collision += insertKey(key);
@@ -64,9 +75,22 @@ public class Open_Addressing {
         }
             
          /**Removes key k from the hash table. Returns the number of collisions encountered*/
+         //mayble implement wrap around
         public int removeKey(int key){
             //TODO: implement this and change the return statement
-                
-            return -1;
+            int collisions = 0;
+            if (key < 0) return collisions;
+            while (true) {
+                int index = probe(key, collisions);
+                if (index >= Table.length - 1) break;
+                int contents = Table[index]; //get value at hash index
+                if (contents == -1) break; //implied item not in table
+                if (contents == key) { //item found
+                    Table[index] = -2; //deletion
+                    break;
+                }
+                collisions ++;
+            }
+            return collisions;
         }
 }
