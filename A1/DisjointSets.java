@@ -54,17 +54,29 @@ public class DisjointSets {
     
     /* find resentative of element i */
     public int find(int i) {
-
-        /* Fill this method (The statement return 0 is here only to compile) */
-        return 0;
+        if (this.par[i] == i) { // if current node is the root then return
+            return i;
+        } else { //otherwise
+            this.par[i] = find(this.par[i]);
+            return par[i];
+        }
         
     }
 
     /* merge sets containing elements i and j */
     public int union(int i, int j) {
-    
-        /* Fill this method (The statement return 0 is here only to compile) */
-        return 0;
+        int rep_i = find(i);
+        int rep_j = find(j);
+        if (rep_i == rep_j) return rep_i; //if they are both in the same set - return the representative of the
+        if (rank[rep_i] <= rank[rep_j]) {
+            par[rep_i] = rep_j;
+            rank[rep_j] ++;
+            return rep_j;
+        } else {
+            par[rep_j] = rep_i;
+            rank[rep_i] ++;
+            return rep_i;
+        }
         
     }
     
