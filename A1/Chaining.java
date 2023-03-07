@@ -46,8 +46,7 @@ public class Chaining {
     /**Implements the hash function h(k)*/ //done
     public int chain (int key) {
         // TODO: implement this and change the return statement
-        int hash = ((this.A * key) % power2(this.w) >> (this.w - this.r)); //calculate hash index
-        return hash;
+        return ((this.A * key) % power2(this.w) >> (this.w - this.r)); //calculate hash index
     }
         
     

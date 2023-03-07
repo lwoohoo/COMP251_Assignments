@@ -41,8 +41,7 @@ public class Open_Addressing {
         /**Implements the hash function g(k)*/ //done
         public int probe(int key, int i) {
             //TODO: implement this function and change the return statement.
-            int hash = ((((this.A * key) % power2(this.w) >> (this.w - this.r))) + i) % power2(this.r);
-            return hash;
+            return ((((this.A * key) % power2(this.w) >> (this.w - this.r))) + i) % power2(this.r);
      }
      
      
@@ -54,6 +53,7 @@ public class Open_Addressing {
             //Table[i] != -1 implies full slot
             while (true) {
                 int index = probe(key, collisions); //calculate working index
+                if (index == Table.length - 1) break;
                 int contents = Table[index]; //get value at hash index
                 if (contents < 0) { //empty case
                     Table[index] = key; //insertion
@@ -75,11 +75,10 @@ public class Open_Addressing {
         }
             
          /**Removes key k from the hash table. Returns the number of collisions encountered*/
-         //mayble implement wrap around
+         //maybe implement wrap around
         public int removeKey(int key){
             //TODO: implement this and change the return statement
             int collisions = 0;
-            if (key < 0) return collisions;
             while (true) {
                 int index = probe(key, collisions);
                 if (index >= Table.length - 1) break;
