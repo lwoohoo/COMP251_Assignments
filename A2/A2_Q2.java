@@ -8,7 +8,9 @@ public class A2_Q2 {
 		int[] dynamic = dynamic(denominations, bound, finalIndex);
 		for (int i = 2; i < bound; i++) {
 			int greedy = greedy(denominations, i, finalIndex);
-			if (dynamic[i] != greedy) return i; //counterexample found => greedy fails
+			if (dynamic[i] != greedy) {
+				return i; //counterexample found => greedy fails
+			}
 		}
 		return -1; //if loops ends => no counterexample exists
 		
@@ -22,7 +24,9 @@ public class A2_Q2 {
 				value = value - coin;
 				total++;
 			}
-			if (value == 0) return total; //exit case
+			if (value == 0) {
+				return total; //exit case
+			}
 			finalIndex --;
 		}
 
@@ -44,8 +48,10 @@ public class A2_Q2 {
 
 			for (int j = finalIndex; j >= 0; j--) {
 				if (denominations[j] <= i) { //if coin_j fits in i then
-					int workingTotal = refTable[i - denominations[j]]; //set total 0 if perfect 
-					if (workingTotal != Integer.MAX_VALUE && workingTotal + 1 < refTable[i]) refTable[i] = workingTotal + 1;
+					int workingTotal = refTable[i - denominations[j]]; //store realtive total value in table (allows use of previously calculated values) 
+					if (workingTotal != Integer.MAX_VALUE && workingTotal + 1 < refTable[i]){
+						 refTable[i] = workingTotal + 1;
+					}
 				}
 				//otherwise move to next coin until one does fit
 			}
