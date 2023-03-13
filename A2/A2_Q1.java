@@ -19,45 +19,39 @@ public class A2_Q1{
 				//check directions for possible move and then proceed into recursion
 				if (tryUp(board, row, col)) {
 					newBoard = copy(board);
-					player1Score += moveBoard(newBoard, row, col, row - 2, col, 0); //sum totals player one score
-					int workingScore = player2(newBoard, player1Score, player2Score); //proceed to next layer
+					int workingScore = player2(newBoard, player1Score + moveBoard(newBoard, row, col, row - 2, col, 0), player2Score); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryDown(board, row, col)) {
 					newBoard = copy(board);
-					player1Score += moveBoard(newBoard, row, col, row + 2, col, 1); //sum totals player one score
-					int workingScore = player2(newBoard, player1Score, player2Score); //proceed to next layer
+					int workingScore = player2(newBoard, player1Score + moveBoard(newBoard, row, col, row + 2, col, 1), player2Score); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryLeft(board, row, col)) {
 					newBoard = copy(board);
-					player1Score += moveBoard(newBoard, row, col, row, col - 2, 2); //sum totals player one score
-					int workingScore = player2(newBoard, player1Score, player2Score); //proceed to next layer
+					int workingScore = player2(newBoard, player1Score + moveBoard(newBoard, row, col, row, col - 2, 2), player2Score); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryRight(board, row, col)) {
 					newBoard = copy(board);
-					player1Score += moveBoard(newBoard, row, col, row, col + 2, 3); //sum totals player one score
-					int workingScore = player2(newBoard, player1Score, player2Score); //proceed to next layer
+					int workingScore = player2(newBoard, player1Score + moveBoard(newBoard, row, col, row, col + 2, 3), player2Score); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryUpLeft(board, row, col)) {
 					newBoard = copy(board);
-					player1Score += moveBoard(newBoard, row, col, row - 2, col - 2, 4); //sum totals player one score
-					int workingScore = player2(newBoard, player1Score, player2Score); //proceed to next layer
+					int workingScore = player2(newBoard, player1Score + moveBoard(newBoard, row, col, row - 2, col - 2, 4), player2Score); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryDownRight(board, row, col)) {
 					newBoard = copy(board);
-					player1Score += moveBoard(newBoard, row, col, row + 2, col + 2, 5); //sum totals player one score
-					int workingScore = player2(newBoard, player1Score, player2Score); //proceed to next layer
+					int workingScore = player2(newBoard, player1Score + moveBoard(newBoard, row, col, row + 2, col + 2, 5), player2Score); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 			}
 		}
 		//at this point the max score difference of all games in further layers is stored in totalScore
 		//at this point also the base case has been reached by implication (no valid moves)
-		System.out.println(totalScore);
+		//System.out.println(totalScore);
 		return totalScore;
 	}
 
@@ -73,38 +67,32 @@ public class A2_Q1{
 				//check directions for possible move and then proceed into recursion
 				if (tryUp(board, row, col)) {
 					newBoard = copy(board);
-					player2Score += moveBoard(newBoard, row, col, row - 2, col, 0); //sum totals player one score
-					int workingScore = player1(newBoard, player1Score, player2Score); //proceed to next layer
+					int workingScore = player1(newBoard, player1Score, player2Score + moveBoard(newBoard, row, col, row - 2, col, 0)); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryDown(board, row, col)) {
 					newBoard = copy(board);
-					player2Score += moveBoard(newBoard, row, col, row + 2, col, 1); //sum totals player one score
-					int workingScore = player1(newBoard, player1Score, player2Score); //proceed to next layer
+					int workingScore = player1(newBoard, player1Score, player2Score + moveBoard(newBoard, row, col, row + 2, col, 1)); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryLeft(board, row, col)) {
 					newBoard = copy(board);
-					player2Score += moveBoard(newBoard, row, col, row, col - 2, 2); //sum totals player one score
-					int workingScore = player1(newBoard, player1Score, player2Score); //proceed to next layer
+					int workingScore = player1(newBoard, player1Score, player2Score + moveBoard(newBoard, row, col, row, col - 2, 2)); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryRight(board, row, col)) {
 					newBoard = copy(board);
-					player2Score += moveBoard(newBoard, row, col, row, col + 2, 3); //sum totals player one score
-					int workingScore = player1(newBoard, player1Score, player2Score); //proceed to next layer
+					int workingScore = player1(newBoard, player1Score, player2Score + moveBoard(newBoard, row, col, row, col + 2, 3)); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryUpLeft(board, row, col)) {
 					newBoard = copy(board);
-					player2Score += moveBoard(newBoard, row, col, row - 2, col - 2, 4); //sum totals player one score
-					int workingScore = player1(newBoard, player1Score, player2Score); //proceed to next layer
+					int workingScore = player1(newBoard, player1Score, player2Score + moveBoard(newBoard, row, col, row - 2, col - 2, 4)); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryDownRight(board, row, col)) {
 					newBoard = copy(board);
-					player2Score += moveBoard(newBoard, row, col, row + 2, col + 2, 5); //sum totals player one score
-					int workingScore = player1(newBoard, player1Score, player2Score); //proceed to next layer
+					int workingScore = player1(newBoard, player1Score, player2Score + moveBoard(newBoard, row, col, row + 2, col + 2, 5)); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 			}
@@ -112,7 +100,7 @@ public class A2_Q1{
 
 		//at this point the max score difference of all games in further layers is stored in totalScore
 		//at this point also the base case has been reached by implication (no valid moves)
-		System.out.println(totalScore);
+		//System.out.println(totalScore);
 		return totalScore;
 	}
 
