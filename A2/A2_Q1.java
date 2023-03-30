@@ -8,8 +8,8 @@ public class A2_Q1{
 	}
 
 	public static int player1(int[][] board, int player1Score, int player2Score) {
-		int totalScore = player1Score - player2Score; //init total score for return
-		int[][] newBoard;
+		int totalScore = player1Score - player1Score; //init total score for return
+		//System.out.println(totalScore);
 
 		//effectively try all values
 		for (int row = 0; row < 5; row++) {
@@ -18,32 +18,32 @@ public class A2_Q1{
 				if (board[row][col] == 0) continue; //skip loop index for invalid token
 				//check directions for possible move and then proceed into recursion
 				if (tryUp(board, row, col)) {
-					newBoard = copy(board);
+					int[][] newBoard = copy(board);
 					int workingScore = player2(newBoard, player1Score + moveBoard(newBoard, row, col, row - 2, col, 0), player2Score); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryDown(board, row, col)) {
-					newBoard = copy(board);
+					int[][] newBoard = copy(board);
 					int workingScore = player2(newBoard, player1Score + moveBoard(newBoard, row, col, row + 2, col, 1), player2Score); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryLeft(board, row, col)) {
-					newBoard = copy(board);
+					int[][] newBoard = copy(board);
 					int workingScore = player2(newBoard, player1Score + moveBoard(newBoard, row, col, row, col - 2, 2), player2Score); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryRight(board, row, col)) {
-					newBoard = copy(board);
+					int[][] newBoard = copy(board);
 					int workingScore = player2(newBoard, player1Score + moveBoard(newBoard, row, col, row, col + 2, 3), player2Score); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryUpLeft(board, row, col)) {
-					newBoard = copy(board);
+					int[][] newBoard = copy(board);
 					int workingScore = player2(newBoard, player1Score + moveBoard(newBoard, row, col, row - 2, col - 2, 4), player2Score); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryDownRight(board, row, col)) {
-					newBoard = copy(board);
+					int[][] newBoard = copy(board);
 					int workingScore = player2(newBoard, player1Score + moveBoard(newBoard, row, col, row + 2, col + 2, 5), player2Score); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
@@ -56,8 +56,7 @@ public class A2_Q1{
 	}
 
 	public static int player2(int[][] board, int player1Score, int player2Score) {
-		int totalScore = player1Score - player2Score; //init total score for return
-		int[][] newBoard;
+		int totalScore = player2Score - player1Score; //init total score for return
 
 		//effectively try all values
 		for (int row = 0; row < 5; row++) {
@@ -66,32 +65,32 @@ public class A2_Q1{
 				if (board[row][col] == 0) continue; //skip loop index for invalid token
 				//check directions for possible move and then proceed into recursion
 				if (tryUp(board, row, col)) {
-					newBoard = copy(board);
+					int[][] newBoard = copy(board);
 					int workingScore = player1(newBoard, player1Score, player2Score + moveBoard(newBoard, row, col, row - 2, col, 0)); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryDown(board, row, col)) {
-					newBoard = copy(board);
+					int[][] newBoard = copy(board);
 					int workingScore = player1(newBoard, player1Score, player2Score + moveBoard(newBoard, row, col, row + 2, col, 1)); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryLeft(board, row, col)) {
-					newBoard = copy(board);
+					int[][] newBoard = copy(board);
 					int workingScore = player1(newBoard, player1Score, player2Score + moveBoard(newBoard, row, col, row, col - 2, 2)); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryRight(board, row, col)) {
-					newBoard = copy(board);
+					int[][] newBoard = copy(board);
 					int workingScore = player1(newBoard, player1Score, player2Score + moveBoard(newBoard, row, col, row, col + 2, 3)); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryUpLeft(board, row, col)) {
-					newBoard = copy(board);
+					int[][] newBoard = copy(board);
 					int workingScore = player1(newBoard, player1Score, player2Score + moveBoard(newBoard, row, col, row - 2, col - 2, 4)); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
 				if (tryDownRight(board, row, col)) {
-					newBoard = copy(board);
+					int[][] newBoard = copy(board);
 					int workingScore = player1(newBoard, player1Score, player2Score + moveBoard(newBoard, row, col, row + 2, col + 2, 5)); //proceed to next layer
 					if (workingScore > totalScore) totalScore = workingScore; //store max
 				}
@@ -116,36 +115,36 @@ public class A2_Q1{
 
 	public static boolean tryUp(int[][] board, int row, int col) {
 		//check bounds or if adj zero
-		if (row - 2 < 0 || board[row - 1][col] == 0) return false;
+		if (row - 2 < 0 || board[row - 1][col] <= 0 || board[row - 2][col] == -1) return false;
 		return board[row - 2][col] == 0;
 	}
 
 	public static boolean tryDown(int[][] board, int row, int col) {
 		//check bounds
-		if (row + 2 > 4 || board[row + 1][col] == 0) return false;
+		if (row + 2 > 4 || board[row + 1][col] <= 0 || board[row + 2][col] == -1) return false;
 		return board[row + 2][col] == 0;
 	}
 
 	public static boolean tryLeft(int[][] board, int row, int col) {
 		//check bounds
-		if (col - 2 < 0 || board[row][col - 1] == 0) return false;
+		if (col - 2 < 0 || board[row][col - 1] <= 0|| board[row][col - 2] == -1) return false;
 		return board[row][col - 2] == 0;
 	}
 
 	public static boolean tryRight(int[][] board, int row, int col) {
 		//check bounds
-		if (col + 2 > 4 || board[row][col + 1] == 0) return false;
+		if (col + 2 > 4 || board[row][col + 1] <= 0 || board[row][col + 2] == -1) return false;
 		return board[row][col + 2] == 0;
 	}
 
 	public static boolean tryUpLeft(int[][] board, int row, int col) {
 		//check bounds
-		if (row - 2 < 0 || col - 2 < 0 || board[row - 1][col - 1] == 0) return false;
+		if (row - 2 < 0 || col - 2 < 0 || board[row - 1][col - 1] <= 0 || board[row - 2][col - 2] == -1) return false;
 		return board[row -2][col -2] == 0;
 	}
 
 	public static boolean tryDownRight(int[][] board, int row, int col) {
-		if (row + 2 > 4 || col + 2 > 4 || board[row + 1][col + 1] == 0) return false;
+		if (row + 2 > 4 || col + 2 > 4 || board[row + 1][col + 1] <= 0 || board[row + 2][col + 2] == -1) return false;
 		return board[row + 2][col + 2] == 0;
 	}
 
@@ -194,6 +193,7 @@ public class A2_Q1{
 
 	public static void main(String[] args) {
 		int[][] board = {{1, -1, -1, -1, -1}, {1,1,-1,-1,-1}, {1,1,1,-1,-1}, {1,1,1,1,-1}, {1, 1, 0, 100, 1}};
+		//int[][] board = {{1, -1, -1}, {1, 4, -1}, {7, 5, 0}};
 		System.out.println(game_recursion(board));
 
 

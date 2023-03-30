@@ -41,7 +41,7 @@ public class HW_Sched {
 			homeworkPlan[i] = -1;
 		}
 		
-		//loops selects the best option and places it in the beginning of the schedule
+		//loops selects the best option and places it in the startning of the schedule
 		//note that if #hw > #hours,
 		ArrayList<Assignment> workingList = new ArrayList(Assignments);
 		for (int index = 0; index < homeworkPlan.length; index++){ //iterate over the schedule
